@@ -1,0 +1,2 @@
+# mdda
+work with DevCpp
