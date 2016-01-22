@@ -1,0 +1,43 @@
+int filtering(string toplist[], string whitelist[], string domain, int topcount, int whitecount)
+{
+	for(int k=0; k<topcount; k++)
+	{
+		if(domain.find(toplist[k])<10000)
+		return 0;
+	}
+	for(int k=0; k<whitecount; k++)
+	{
+		if(domain.find(whitelist[k])<10000)
+		return 0;
+	}	
+	return 1;
+}
+
+int ipfiltering(string ipaddress[], string ip, int ipcount)
+{
+	for(int k=0; k<ipcount; k++)
+	{
+		if(ip.find(ipaddress[k])<10000)
+		return 0;
+	}	
+	return 1;
+}
+
+void dnsprocess(LinkedList<string>* domainlist,LinkedList<string>* iplist,string domainname,string ipaddress)
+{
+	if(domainlist->search_domain(domainname)==0)
+	{
+		domainlist->push_back(domainname);
+		domainlist->push_IP(ipaddress,domainlist->last);	
+	}
+	else
+		domainlist->push_IP(ipaddress,domainlist->search_domain(domainname));
+	if(iplist->search_domain(ipaddress)==0)
+	{
+		iplist->push_back(ipaddress);
+		iplist->push_IP(domainname,iplist->last);	
+	}
+	else
+		iplist->push_IP(domainname,iplist->search_domain(ipaddress));
+	
+}
